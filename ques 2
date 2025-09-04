@@ -1,0 +1,62 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+#define MAX 100
+
+class Stack {
+    char arr[MAX];
+    int top;
+
+public:
+    Stack() { top = -1; }
+
+    bool isEmpty() {
+        return (top == -1);
+    }
+
+    bool isFull() {
+        return (top == MAX - 1);
+    }
+
+    void push(char ch) {
+        if (!isFull()) {
+            arr[++top] = ch;
+        } else {
+            cout << "Stack Overflow!" << endl;
+        }
+    }
+
+    char pop() {
+        if (!isEmpty()) {
+            return arr[top--];
+        } else {
+            cout << "Stack Underflow!" << endl;
+            return '\0';
+        }
+    }
+};
+
+void reverseString(char str[]) {
+    Stack s;
+    int n = strlen(str);
+
+    for (int i = 0; i < n; i++) {
+        s.push(str[i]);
+    }
+
+    for (int i = 0; i < n; i++) {
+        str[i] = s.pop();
+    }
+}
+
+int main() {
+    char str[MAX];
+    cout << "Enter a string: ";
+    cin.getline(str, MAX);
+
+    reverseString(str);
+
+    cout << "Reversed string: " << str << endl;
+    return 0;
+}
